@@ -1,0 +1,15 @@
+*.log
+*.png
+*.jpg
+test/
+tex/
+generated_test/
+*.txt
+*.py
+*.ncu-rep
+*.nsys-rep
+*.sqlite
+*.o
+.DS_Store
+.vscode/
+.idea/

@@ -1,0 +1,180 @@
+H	VN:Z:1.0
+S	seq1	AATCTGTTCGAGGGCTAGCTCGATGATTGCGTCGTGGGAAAAATCTCAGAAATCTGTTCGAGGGCTAGCTCGATGATTGCGTCGTGGGAAAAAATCTGTTCGAGGGCTAGCTCGATGATTGCGTCGTGGGAAAAATCTCAGAAATCTGTTCGAGGGCTAGCTCGATGATCTCAGAAATCTGTTCGAGGGCTAGCTCGATGATTGCGTCGTGGGAAAAATCTCAGAAATCTGTTCGAGGGCTAGCTCGATGATTGCGTCGTGGGAAAAATCTCAGAAATCTGTTCGAGGGCTAGCTCGATGATTGCGTCGTGGGAAAAATCTCAGAAATCTGTTCG
+S	seq2	T
+S	seq3	A
+S	seq4	G
+S	seq5	GGCTAGCTCGATGATTG
+S	seq6	T
+S	seq7	C
+S	seq8	G
+S	seq9	TCGTGGGAAAAATCTCAGAAATCTGTTCGAG
+S	seq10	T
+S	seq11	G
+S	seq12	G
+S	seq13	CTAGCTCGATGATTGCGTCGTGGGAAAAATCTCAG
+S	seq14	T
+S	seq15	A
+S	seq16	A
+S	seq17	ATCTGTTCGAGGGCT
+S	seq18	T
+S	seq19	A
+S	seq20	G
+S	seq21	CTCGATGAT
+S	seq22	G
+S	seq23	T
+S	seq24	G
+S	seq25	CGTCGTGGGAAAAATCTCAGAA
+S	seq26	G
+S	seq27	A
+S	seq28	T
+S	seq29	CTGTTCGA
+S	seq30	C
+S	seq31	G
+S	seq32	G
+S	seq33	GCTAGCTCGATGATTGCGTCGTGGGAA
+S	seq34	C
+S	seq35	A
+S	seq36	A
+S	seq37	ATCTCAGAAATCTGTTCGAGGGCTAGCTCGATGATTGCGTCGTGGGAAAAATCTCAGAAATCTGTTCGAGGGCTAGCTCGATGATTGCGTCGTGGGAAAAATCTCAGAAATCTGTTCGAGGGCTAGCTCG
+S	seq38	G
+S	seq39	A
+S	seq40	T
+S	seq41	GATTGCGTCGTGGGAAAAATCTCAGAAATCTGTTCGAGGGCTAGCTCGATGATTGCGTCGTGGGAAAAATCTCAGA
+S	seq42	G
+S	seq43	A
+S	seq44	A
+S	seq45	TCAATCTGTTCGAGGGCTAGCTCGATGATTGCGTCGTGGGAAAAATCTCAGAA
+S	seq46	T
+S	seq47	A
+S	seq48	T
+S	seq49	CTGTTCGAGGGCTAGCTCGATGTGTTCGAGGGCTAGCTCGAAATCTGTTCGAGGGCTA
+S	seq50	C
+S	seq51	G
+S	seq52	C
+S	seq53	T
+S	seq54	T
+S	seq55	C
+S	seq56	G
+S	seq57	A
+S	seq58	G
+S	seq59	A
+S	seq60	TGATTGCGTCGTGGGAAAAATCTCAGAAATCTG
+S	seq61	A
+S	seq62	T
+S	seq63	T
+S	seq64	CG
+S	seq65	T
+S	seq66	A
+S	seq67	G
+S	seq68	GGCT
+S	seq69	T
+S	seq70	A
+S	seq71	G
+S	seq72	CTCGATGTGATTGCGTCGTGGGAAAAATCTCAGAAATCTGTTCGA
+S	seq73	T
+S	seq74	G
+S	seq75	G
+S	seq76	GCAATCTGTTCGAGGGCTAG
+S	seq77	T
+S	seq78	C
+S	seq79	T
+S	seq80	CGATGATTGCGTCGTGGGAAAAATCTCAGAAATCTGTTCGAGGGCTAGCTCGATGTAGCTCGATGATTGCGTCGTGGGAAAAATCTCAGA
+L	seq1	+	seq2	+	*
+L	seq1	+	seq3	+	*
+L	seq2	+	seq4	+	*
+L	seq3	+	seq4	+	*
+L	seq4	+	seq5	+	*
+L	seq5	+	seq6	+	*
+L	seq5	+	seq7	+	*
+L	seq6	+	seq8	+	*
+L	seq7	+	seq8	+	*
+L	seq8	+	seq9	+	*
+L	seq9	+	seq10	+	*
+L	seq9	+	seq11	+	*
+L	seq10	+	seq12	+	*
+L	seq11	+	seq12	+	*
+L	seq12	+	seq13	+	*
+L	seq13	+	seq14	+	*
+L	seq13	+	seq15	+	*
+L	seq14	+	seq16	+	*
+L	seq15	+	seq16	+	*
+L	seq16	+	seq17	+	*
+L	seq17	+	seq18	+	*
+L	seq17	+	seq19	+	*
+L	seq18	+	seq20	+	*
+L	seq19	+	seq20	+	*
+L	seq20	+	seq21	+	*
+L	seq21	+	seq22	+	*
+L	seq21	+	seq23	+	*
+L	seq22	+	seq24	+	*
+L	seq23	+	seq24	+	*
+L	seq24	+	seq25	+	*
+L	seq25	+	seq26	+	*
+L	seq25	+	seq27	+	*
+L	seq26	+	seq28	+	*
+L	seq27	+	seq28	+	*
+L	seq28	+	seq29	+	*
+L	seq29	+	seq30	+	*
+L	seq29	+	seq31	+	*
+L	seq30	+	seq32	+	*
+L	seq31	+	seq32	+	*
+L	seq32	+	seq33	+	*
+L	seq33	+	seq34	+	*
+L	seq33	+	seq35	+	*
+L	seq34	+	seq36	+	*
+L	seq35	+	seq36	+	*
+L	seq36	+	seq37	+	*
+L	seq37	+	seq38	+	*
+L	seq37	+	seq39	+	*
+L	seq38	+	seq40	+	*
+L	seq39	+	seq40	+	*
+L	seq40	+	seq41	+	*
+L	seq41	+	seq42	+	*
+L	seq41	+	seq43	+	*
+L	seq42	+	seq44	+	*
+L	seq43	+	seq44	+	*
+L	seq44	+	seq45	+	*
+L	seq45	+	seq46	+	*
+L	seq45	+	seq47	+	*
+L	seq46	+	seq48	+	*
+L	seq47	+	seq48	+	*
+L	seq48	+	seq49	+	*
+L	seq49	+	seq50	+	*
+L	seq49	+	seq51	+	*
+L	seq50	+	seq52	+	*
+L	seq51	+	seq52	+	*
+L	seq52	+	seq53	+	*
+L	seq53	+	seq54	+	*
+L	seq53	+	seq55	+	*
+L	seq54	+	seq56	+	*
+L	seq55	+	seq56	+	*
+L	seq56	+	seq57	+	*
+L	seq56	+	seq58	+	*
+L	seq57	+	seq59	+	*
+L	seq58	+	seq59	+	*
+L	seq59	+	seq60	+	*
+L	seq60	+	seq61	+	*
+L	seq60	+	seq62	+	*
+L	seq61	+	seq63	+	*
+L	seq62	+	seq63	+	*
+L	seq63	+	seq64	+	*
+L	seq64	+	seq65	+	*
+L	seq64	+	seq66	+	*
+L	seq65	+	seq67	+	*
+L	seq66	+	seq67	+	*
+L	seq67	+	seq68	+	*
+L	seq68	+	seq69	+	*
+L	seq68	+	seq70	+	*
+L	seq69	+	seq71	+	*
+L	seq70	+	seq71	+	*
+L	seq71	+	seq72	+	*
+L	seq72	+	seq73	+	*
+L	seq72	+	seq74	+	*
+L	seq73	+	seq75	+	*
+L	seq74	+	seq75	+	*
+L	seq75	+	seq76	+	*
+L	seq76	+	seq77	+	*
+L	seq76	+	seq78	+	*
+L	seq77	+	seq79	+	*
+L	seq78	+	seq79	+	*
+L	seq79	+	seq80	+	*
