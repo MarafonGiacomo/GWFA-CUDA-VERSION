@@ -1,76 +1,107 @@
-**Note:** the development of GWFA has been moved to
-[gfatools](https://github.com/lh3/gfatools) such that the algorithm can
-directly operate on bidirected sequence graphs.
+# GWFA CUDA Version
 
-<hr>
+CUDA-accelerated version of GWFA (Graph WaveFront Alignment), adapted from the original proof-of-concept implementation by Heng Li.
+
+GWFA aligns a sequence against a sequence graph and computes the edit distance without backtracing. This repository focuses on accelerating the core alignment procedure on NVIDIA GPUs using CUDA.
+
+This is an experimental academic implementation, not an end-user read mapping tool.
+
+## Overview
+
+The project ports and optimizes the GWFA algorithm for GPU execution.
+
+The implementation uses two levels of parallelism:
+
+- different reads are processed independently by different CUDA blocks;
+- the 32 threads inside each block cooperate on the alignment of a single read.
+
+Main features:
+
+- CUDA implementation of GWFA edit-distance computation;
+- one-warp-per-read execution model;
+- warp-level acceleration of the extension phase;
+- optimized state management, sorting and deduplication;
+- CUDA streams for batched execution;
+- support for GFA graph inputs and FASTA query sequences.
 
 ## Getting Started
+
+Clone the repository and build the project:
+
 ```sh
-git clone https://github.com/lh3/gwfa
-cd gwfa && make
-./gwf-test test/C4-90.gfa.gz test/C4-NA19240.1.fa.gz
-./gwf-test test/C4-NA19240.1.fa.gz test/C4-NA19240.2.fa.gz
+git clone https://github.com/MarafonGiacomo/GWFA-CUDA-VERSION
+cd GWFA-CUDA-VERSION
+make
 ```
 
-## Introduction
+Run a test with a generated graph and query file:
 
-GWFA (Graph WaveFront Alignment) is an algorithm to align a sequence against a
-sequence graph. It adapts the [WFA algorithm][wfa] for graphs. This repo
-presents a _proof-of-concept_ implementation of GWFA that computes the edit
-distance between a graph and a sequence without backtracing. The algorithm
-assumes the start of the sequence to be aligned with the start of the first
-segment in the graph and requires the query sequence to be fully aligned. This
-behavior is similar to the SHW mode of [edlib][edlib]. It does not support
-semi-global alignment and is thus not intended for read mapping. This is not an
-enduser tool.
+```sh
+./gwf-test exposed_testing/generated/grafo_test.gfa exposed_testing/generated/ref1k_1.fa
+```
 
-GWFA is optimized for graphs consisting of long segments. It is largely reduced
-to [my implementation][mylv89] of the [Landau-Vishkin algorithm][lv89] given
-two linear sequences as input. Similar to WFA, GWFA is fast when the edit
-distance is small. It can align a ~120kb sequence to a ~160kb graph at 0.1%
-divergence in 0.02 second, much faster than the ordinary Needleman-Wunsch
-formulation.
+Other query files can be tested by replacing the `.fa` input:
 
-## Evaluation
+```sh
+./gwf-test exposed_testing/generated/grafo_test.gfa exposed_testing/generated/ref1k_5.fa
+./gwf-test exposed_testing/generated/grafo_test.gfa exposed_testing/generated/ref1k_10.fa
+./gwf-test exposed_testing/generated/grafo_test.gfa exposed_testing/generated/ref5k_1.fa
+./gwf-test exposed_testing/generated/grafo_test.gfa exposed_testing/generated/ref10k_1.fa
+```
 
-To evaluate the performance of GWFA, we constructed two small graphs with
-minigraph. The first graph includes ~120kb region around the C4A and C4B genes.
-The second includes ~5Mb of MHC, consisting of 980 segments and 1399 links.
-Both graphs are available [via Zenodo][zenodo]. Neither has cycles.
+## Test Files
 
-For the C4-90 graph, [Haowen Zhang][haowen] found GWFA can report the same edit
-distance in comparison to [his implementations][hz-sga] of various
-sequence-to-graph algorithms.
+The generated test files follow this naming convention:
 
-For the MHC-57 graph, GWFA took 3m38s to align the HG002.2 haplotype (extracted
-from MHC-61.agc on Zenodo) with 41932 edits. Other exact solutions did not
-finish in a day. [GraphAligner][graphaligner]-1.0.14 didn't align the haplotype
-in one piece. For the first 2Mb subsequence of HG002.2, GraphAligner reported
-6460 edits in the vg mode and 6547 edits in the dbg mode. GWFA found a smaller
-edit distance of 6447.
+```text
+ref<read_length>_<error_rate>.fa
+```
 
-We have not tested more complex graphs with cycles. Although we think the GWFA
-algorithm should be correct in theory, we are not sure if the current
-implmentation is correct in all corner cases. Please use with caution.
+Examples:
 
-## Contributors
+```text
+ref1k_1.fa   -> reads of length 1k with 1% error rate
+ref1k_5.fa   -> reads of length 1k with 5% error rate
+ref5k_10.fa  -> reads of length 5k with 10% error rate
+ref10k_1.fa  -> reads of length 10k with 1% error rate
+```
 
-[Shiqi Wu][shiqi] formulated the initial GWFA algorithm. [Haowen Zhang][haowen]
-inspected the code and helped the evaluation.
+## Implementation Notes
 
-## Cite GWFA
+Each read is assigned to one CUDA block. Since each block uses 32 threads, the internal execution model maps naturally to one warp per read.
 
-You can find the [preprint][preprint] here:
+The extension phase is accelerated with warp-level primitives. Each CUDA lane compares one graph/query character pair, and `__ballot_sync()` is used to detect mismatches across the warp. When all characters match, the algorithm can advance by 32 positions in one iteration.
 
-> Zhang H, Wu S, Aluru S and Li H (2022) Fast sequence to graph alignment using the graph wavefront algorithm. arXiv:2206.13574
+CUDA streams are used to process batches of reads and reduce idle time between memory transfers and kernel execution.
 
-[mylv89]: https://github.com/lh3/lv89
-[lv89]: https://doi.org/10.1016/0196-6774(89)90010-2
-[wfa]: https://github.com/smarco/WFA
-[zenodo]: https://zenodo.org/record/6056061
-[haowen]: https://github.com/haowenz
-[hz-sga]: https://github.com/haowenz/SGA
-[graphaligner]: https://github.com/maickrau/GraphAligner
-[shiqi]: https://github.com/Shiqi-Wu
-[edlib]: https://github.com/Martinsos/edlib
-[preprint]: https://arxiv.org/abs/2206.13574
+## Benchmark Summary
+
+The implementation was tested on a laptop-class CUDA platform:
+
+```text
+CPU: AMD Ryzen 5 7645HX
+GPU: NVIDIA GeForce RTX 4050, 6 GB
+```
+
+The CUDA version achieves the highest speedups on shorter reads and lower error rates. Performance decreases as read length and error rate increase, because the wavefronts become larger and graph traversal, sorting, deduplication and memory traffic become more expensive.
+
+## Limitations
+
+This implementation follows the same general assumptions as the original GWFA proof of concept:
+
+- it computes edit distance only;
+- it does not perform backtracing;
+- it is not a complete read mapper;
+- it should be tested carefully on complex graph corner cases.
+
+## Original GWFA
+
+The original GWFA repository is available here:
+
+https://github.com/lh3/gwfa
+
+The development of GWFA has since moved to `gfatools`, where the algorithm can operate directly on bidirected sequence graphs.
+
+## Attribution
+
+This project is based on the original GWFA implementation and adapts it for CUDA-based acceleration.
