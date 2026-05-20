@@ -7,10 +7,6 @@ OBJS = gwf-ed.o gfa-base.o gfa-io.o gfa-sub.o
 PROG = gwf-test
 LIBS = -lz -lpthread -lm
 
-ifneq ($(asan),)
-    CFLAGS += -fsanitize=address
-    LIBS += -fsanitize=address
-endif
 
 ifneq ($(gwf_debug),)
     CFLAGS += -DGWF_ENABLE_DEBUG_LOG

@@ -49,6 +49,31 @@ Other query files can be tested by replacing the `.fa` input:
 ./gwf-test exposed_testing/generated/grafo_test.gfa exposed_testing/generated/ref10k_1.fa
 ```
 
+## Debug Build
+
+The project can be compiled with debug logging enabled by passing `gwf_debug=1` to `make`:
+
+```sh
+make clean
+make gwf_debug=1
+```
+
+This enables the `GWF_ENABLE_DEBUG_LOG` macro at compile time.
+
+The executable can then be run normally:
+
+```sh
+./gwf-test exposed_testing/generated/grafo_test.gfa exposed_testing/generated/ref1k_1.fa
+```
+
+For a more readable debugging build, host-side optimizations can be disabled:
+
+```sh
+make clean
+make gwf_debug=1 HOST_CFLAGS="-O0 -g"
+```
+
+
 ## Test Files
 
 The generated test files follow this naming convention:
